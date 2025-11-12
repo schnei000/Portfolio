@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Walker's Portfolio</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <header id="home-header">
+            <h1>W.S.</h1> <!-- Initiales pour un header plus sobre -->
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="about">
+                <div class="about-content">
+                    <h1>Walker's Portfolio</h1>
+                    <h2>Developpeur Full Stack</h2>
+                    <p>{{ about_me }}</p>
+                </div>
+            </section>
+            <section id="skills">
+                <h2>Skills</h2>
+                <div class="skills-container">
+                    {% for skill in skills %}
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">{{ skill.name }}</span>
+                            <span class="skill-percentage">{{ skill.percentage }}%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress" style="width: {{ skill.percentage }}%;"></div></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="project-list">
+                    <!-- Les projets seront injectés ici par Flask -->
+                    {% for project in projects %}
+                    <div class="project-card">
+                        <h3>{{ project.name }}</h3>
+                        <p>{{ project.description }}</p>
+                        <a href="{{ project.url }}" target="_blank">Voir le projet</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>Email: <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a></p>
+                <p>Github: <a href="{{ contact_info.github }}" target="_blank">{{ contact_info.github }}</a></p>
+                <p>LinkedIn: <a href="{{ contact_info.linkedin }}" target="_blank">walker-st-fleur</a></p>
+                </section>
+
+        </main>
+        <footer>
+            <p>&copy; <span id="year"></span> Walker's Portfolio. All rights reserved.</p>
+            
+        </footer>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Le script pour les animations n'est plus nécessaire ici,
+            // car nous allons utiliser une animation CSS pure.
+        </script>
+    </body>
+</html>

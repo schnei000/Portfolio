@@ -1,0 +1,311 @@
+/* === VARIABLES DE COULEUR ET POLICES === */
+:root {
+    /* Palette "Créativité et Énergie" (Thème Clair) */
+    /* Palette "Luxe et Sophistication" (Thème Sombre) */
+    --main-bg: #0A0E2A; /* Arrière-plan Principal: Bleu Marine Profond */
+    --main-text: #F0F0F0; /* Texte Principal: Blanc Cassé */
+    --accent-color: #F7C548; /* Couleur d'Accentuation: Or Vieilli */
+    --secondary-gray: #454F63; /* Couleur Secondaire: Gris Ardoise Clair */
+
+    /* Couleurs dérivées */
+    --card-bg: #1C2E4A; /* Un bleu plus clair pour le fond des cartes */
+    --card-shadow: rgba(28, 46, 74, 0.15);
+
+    --font-sans: 'Calibri', 'San Francisco', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+
+    --fz-lg: 20px;
+    --fz-xl: 22px;
+    --fz-xxl: 26px;
+    --fz-heading: 48px;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === STYLES GLOBAUX === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--main-bg);
+    color: var(--main-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    padding: 0 150px;
+    margin: 0 auto;
+    max-width: 1600px;
+}
+
+section {
+    animation: fadeIn 0.8s ease-out forwards;
+    padding: 100px 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    scroll-margin-top: 100px; /* Correction pour l'ancre du header fixe */
+    opacity: 0; /* Initial state for animation */
+}
+/* La première section (About) aura un style différent */
+section:first-of-type {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* Prend toute la hauteur de l'écran moins le header */
+}
+
+h1, h2, h3 {
+    color: var(--main-text);
+    font-weight: 600;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    font-size: var(--fz-xxl);
+    margin-bottom: 30px;
+}
+
+/* Ligne décorative après les titres de section */
+h2::after {
+    content: '';
+    display: block;
+    position: relative;
+    top: 2px;
+    width: 200px;
+    height: 1px;
+    margin-left: 20px;
+    background-color: var(--accent-color);
+}
+
+
+/* === HEADER ET NAVIGATION === */
+#home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    height: 100px;
+    position: fixed; /* Changé pour un meilleur effet de flou */
+    width: 100%;
+    top: 0;
+    background-color: rgba(10, 14, 42, 0.85); /* Fond sombre semi-transparent */
+    backdrop-filter: blur(10px); /* Effet verre dépoli */
+    z-index: 10;
+    box-shadow: 0 5px 20px rgba(28, 46, 74, 0.1);
+    transition: top 0.3s ease; /* Pour un futur effet de masquage au scroll */
+}
+
+/* Le titre principal est maintenant dans la section "About", pas dans le header */
+#home-header h1 {
+    font-size: var(--fz-lg);
+    color: var(--main-text);
+}
+
+/* === SECTION ABOUT (HERO) === */
+.about-content h1 { font-size: var(--fz-heading); margin-bottom: 10px; }
+.about-content h2 { font-size: var(--fz-xxl); margin-bottom: 20px; color: var(--accent-color); }
+.about-content p { max-width: 600px; } /* Limite la largeur du paragraphe pour la lisibilité */
+
+/* Le titre h2 de la section about n'a pas besoin de la ligne décorative */
+#about > h2::after { display: none; }
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav li {
+    margin-left: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--main-text);
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+/* === SECTION SKILLS === */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+    gap: 40px 50px; /* Espace vertical et horizontal */
+    margin-top: 20px;
+}
+
+.skill-item {
+    position: relative;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-family: var(--font-mono);
+}
+
+.skill-name {
+    font-size: 16px;
+}
+
+.skill-percentage {
+    color: var(--secondary-gray);
+    font-size: 15px;
+}
+
+.progress-bar {
+    height: 12px;
+    background-color: var(--secondary-gray);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 6px;
+    animation: progress-bar-animation 1.5s ease-out forwards;
+}
+
+/* === SECTION PROJETS === */
+.project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    position: relative; /* Pour la bordure animée */
+    background-color: var(--card-bg); /* Fond blanc pour les cartes */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px -15px var(--card-shadow);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-7px);
+}
+
+.project-card h3 {
+    font-size: var(--fz-xl);
+    margin-bottom: 15px;
+    color: var(--main-text);
+}
+
+.project-card p {
+    color: var(--main-text);
+    margin-bottom: 20px;
+}
+
+.project-card a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 10px 15px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    transition: background-color 0.3s ease;
+}
+
+.project-card a::after {
+    content: ' ↗'; /* Indicateur de lien externe */
+    font-family: sans-serif;
+}
+
+.project-card a:hover {
+    background-color: rgba(247, 197, 72, 0.1);
+    border-color: var(--accent-color);
+}
+
+/* === SECTION CONTACT === */
+#contact a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+/* === FOOTER === */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--secondary-gray);
+}
+
+/* === AJUSTEMENTS POUR HEADER FIXE === */
+body {
+    padding-top: 100px; /* Empêche le contenu de passer sous le header fixe */
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1080px) {
+    main {
+        padding: 0 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 0 50px;
+    }
+
+    body {
+        padding-top: 0;
+    }
+
+    #home-header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+
+    section:first-of-type {
+        text-align: center;
+    }
+
+    .about-content p { margin: 0 auto; }
+    .skills-container { grid-template-columns: 1fr; } /* Une seule colonne sur tablette */
+}
+@media (max-width: 768px) {
+    h2::after {
+        width: 100px; /* Ligne plus courte sur mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 0 25px;
+    }
+}
