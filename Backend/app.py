@@ -1,5 +1,5 @@
 from flask import Flask,render_template
-from models import db, Project, Skill
+from Backend.models import db, Project, Skill
 
 
 #Initilisation de notre application avec avec Flask
